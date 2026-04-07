@@ -69,13 +69,18 @@
     <SolidColorBrush x:Key="MaterialDesign.Brush.Body" Color="{StaticResource CommsLinkTextPrimary}" />
     <SolidColorBrush x:Key="MaterialDesign.Brush.Body.Light" Color="{StaticResource CommsLinkTextSecondary}" />
 
-    <!-- Primary brand color -->
-    <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="{StaticResource CommsLinkPrimaryLight}" />
-    <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#FF000000" />
+    <!-- Primary brand color.
+         Light/Dark are intentionally remapped to surface tones so that
+         dragablz tab-strip backgrounds (PrimaryHueDarkBrush) and FAB
+         Mini-Light buttons (PrimaryHueLightBrush) blend with the dark
+         CommsLink chrome instead of blasting Material Blue. Mid stays
+         on-brand for raised buttons / accents. -->
+    <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="{StaticResource CommsLinkSurface}" />
+    <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="{StaticResource CommsLinkTextPrimary}" />
     <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="{StaticResource CommsLinkPrimary}" />
     <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="#FFFFFFFF" />
-    <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="{StaticResource CommsLinkPrimaryDark}" />
-    <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="{StaticResource CommsLinkPaper}" />
+    <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="{StaticResource CommsLinkTextPrimary}" />
 
     <SolidColorBrush x:Key="MaterialDesign.Brush.Primary" Color="{StaticResource CommsLinkPrimary}" />
     <SolidColorBrush x:Key="MaterialDesign.Brush.Primary.Light" Color="{StaticResource CommsLinkPrimaryLight}" />

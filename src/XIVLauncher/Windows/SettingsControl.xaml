@@ -24,7 +24,7 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <dragablz:TabablzControl x:Name="SettingsTabControl" IsEnabled="True" FixedHeaderCount="7" Style="{StaticResource MaterialDesignTabablzControlStyle}"
+        <dragablz:TabablzControl x:Name="SettingsTabControl" IsEnabled="True" FixedHeaderCount="5" Style="{StaticResource MaterialDesignTabablzControlStyle}"
         ItemContainerStyle="{StaticResource WhiteIndicatorTabItemStyle}" BorderThickness="0">
             <TabItem Header="{Binding SettingsGameLoc}">
                 <StackPanel Margin="10,10,0,0">
@@ -158,127 +158,12 @@
 
                         <Button Margin="0,0,0,7" HorizontalAlignment="Center"
                                 VerticalAlignment="Bottom" Click="AddAddon_OnClick"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
                                 ToolTip="{Binding AutoLaunchAddNewToolTipLoc}" Content="{Binding AddNewLoc}" />
                     </Grid>
                 </Grid>
             </TabItem>
 
-            <TabItem Header="{Binding SettingsInGameLoc}" Visibility="Collapsed">
-                <Grid>
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <StackPanel Margin="10,10,10,0">
-                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top"
-                                       Foreground="{DynamicResource MaterialDesignBody}"
-                                       Text="{Binding InGameAddonDescriptionLoc}" />
-
-                            <Separator Margin="0, 5, 0, 0"/>
-
-                            <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
-                                <CheckBox x:Name="EnableHooksCheckBox"
-                                          Content="{Binding InGameAddonEnabledCheckBoxLoc}"
-                                          HorizontalAlignment="Left" VerticalAlignment="Center"
-                                          Foreground="{DynamicResource MaterialDesignBody}" />
-
-                                <TextBlock Foreground="DarkGray" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,2,0,0"
-                                           Text="{Binding InGameAddonCommandHintLoc}" />
-                            </StackPanel>
-                            
-                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0"
-                                       Foreground="{DynamicResource MaterialDesignBody}"
-                                       Text="{Binding InGameAddonBranchSwitcherDescriptionLoc}" />
-                            
-                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"
-                                       Foreground="DarkGray"
-                                       Text="{Binding InGameAddonBranchSwitcherCurrentBranchLoc}" />
-
-                            <TextBlock x:Name="DalamudBranchTextBlock" Margin="22,0,0,0" VerticalAlignment="Top"
-                                       Foreground="DarkGray" Text="" />
-                            
-                            <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}" BorderThickness="2" CornerRadius="4" Margin="10, 10, 0, 10" HorizontalAlignment="Left">
-                                <Button Style="{DynamicResource MaterialDesignFlatButton}"
-                                        HorizontalAlignment="Center"
-                                        Click="OpenDalamudBranchSwitcher_OnClick">
-                                    <Button.ToolTip>
-                                        <TextBlock Text="{Binding OpenDalamudBranchSwitcherTipLoc}" />
-                                    </Button.ToolTip>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Margin="0 0 0 0" VerticalAlignment="Center"
-                                                   Foreground="DarkGray" FontSize="12" Text="{Binding OpenDalamudBranchSwitcherLoc}"/>
-                                    </StackPanel>
-                                </Button>
-                            </Border>
-                        </StackPanel>
-                    </ScrollViewer>
-                </Grid>
-            </TabItem>
-            <TabItem Header="{Binding SettingsPatchingLoc}">
-                <StackPanel>
-                    <CheckBox x:Name="AskBeforePatchingCheckBox"
-                              Content="{Binding AskBeforePatchLoc}"
-                              HorizontalAlignment="Left" Margin="10,10,0,15"
-                              Foreground="{DynamicResource MaterialDesignBody}" />
-
-                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top"
-                               Foreground="{DynamicResource MaterialDesignBody}" Text="{Binding PatchPathLoc}" Margin="10,0,0,0"/>
-                    <components:FolderEntry Text="{Binding PatchPath, UpdateSourceTrigger=PropertyChanged}"
-                                            Description="Select a folder" Width="500" VerticalAlignment="Center"
-                                            HorizontalAlignment="Left"
-                                            Foreground="{DynamicResource MaterialDesignBody}" Margin="10,0,0,0" />
-
-                    <Label HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="{DynamicResource MaterialDesignBody}" Margin="5,10,0,0"
-                           Content="{Binding PatchSpeedLimitLoc}" />
-
-                    <StackPanel Orientation="Horizontal" Margin="10,0, 0, 0">
-                        <xaml:SpeedSpinBox x:Name="SpeedLimitSpinBox" Width="200" Height="40" Min="0" Max="10000" Step="1" Unit="MB/s" Value="50"/>
-                    </StackPanel>
-
-                    <CheckBox x:Name="KeepPatchesCheckBox"
-                              Content="{Binding KeepPatchesLoc}"
-                              HorizontalAlignment="Left" Margin="10,10,0,15"
-                              Foreground="{DynamicResource MaterialDesignBody}" />
-                </StackPanel>
-
-            </TabItem>
-            <TabItem Header="Backup" Visibility="Collapsed">
-                <Grid>
-                    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="600">
-                            <TextBlock Text="Backup and restore your launcher settings, plugins and plugin settings." 
-                                       HorizontalAlignment="Center" TextAlignment="Center"
-                                       Foreground="{DynamicResource MaterialDesignBody}" Margin="0,0,0,5" />
-                            <TextBlock Text="Some data for plugins that store files externally may not be included in this backup." 
-                                       HorizontalAlignment="Center" TextAlignment="Center"
-                                       Foreground="{DynamicResource MaterialDesignBody}" Margin="0,0,0,20" />
-
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Button x:Name="CreateBackupButton" Style="{StaticResource MaterialDesignRaisedButton}" Width="200" Height="120" Margin="0,0,20,0" Click="CreateBackup_OnClick">
-                                    <Grid>
-                                        <StackPanel x:Name="CreateBackupContent" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <materialDesign:PackIcon Kind="Upload" Height="48" Width="48" />
-                                            <TextBlock Text="Create" HorizontalAlignment="Center" Margin="0,8,0,0"/>
-                                        </StackPanel>
-                                        <ProgressBar x:Name="CreateBackupSpinner" IsIndeterminate="True" Visibility="Collapsed" Width="35" Height="35" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource MaterialDesignCircularProgressBar}" Foreground="White" />
-                                    </Grid>
-                                </Button>
-
-                                <Button x:Name="RestoreBackupButton" Style="{StaticResource MaterialDesignRaisedButton}" Width="200" Height="120" Click="RestoreBackup_OnClick">
-                                    <Grid>
-                                        <StackPanel x:Name="RestoreBackupContent" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <materialDesign:PackIcon Kind="Download" Height="48" Width="48" />
-                                            <TextBlock Text="Restore" HorizontalAlignment="Center" Margin="0,8,0,0"/>
-                                        </StackPanel>
-                                        <ProgressBar x:Name="RestoreBackupSpinner" IsIndeterminate="True" Visibility="Collapsed" Width="35" Height="35" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource MaterialDesignCircularProgressBar}" Foreground="White" />
-                                    </Grid>
-                                </Button>
-                            </StackPanel>
-
-                            <CheckBox x:Name="BackupIncludeGameSettingsCheckBox" Margin="0,20,0,0" HorizontalAlignment="Center"
-                                      Foreground="{DynamicResource MaterialDesignBody}" IsChecked="True"
-                                      Content="Include game settings and character files in backup" ToolTip="Include game settings and character files in the backup."/>
-                        </StackPanel>
-                    </Grid>
-                </Grid>
-            </TabItem>
             <TabItem Header="{Binding SettingsAboutLoc}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <Grid>

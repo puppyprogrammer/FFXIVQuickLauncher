@@ -46,7 +46,7 @@ namespace XIVLauncher.Windows
 
         private void OnResolvedBranchChanged(DalamudVersionInfo? branch)
         {
-            this.Dispatcher.Invoke(() => { this.DalamudBranchTextBlock.Text = branch == null ? "Transmitting..." : $"{branch.DisplayName} ({branch.Track})"; });
+            // FFXIVPlugins fork: Dalamud branch UI removed
         }
 
         public void SetUpdater(DalamudUpdater updater)
@@ -71,10 +71,7 @@ namespace XIVLauncher.Windows
             KeepPatchesCheckBox.IsChecked = App.Settings.KeepPatches;
             AutoStartSteamCheckBox.IsChecked = App.Settings.AutoStartSteam;
 
-            // Prevent raising events...
-            this.EnableHooksCheckBox.Checked -= this.EnableHooksCheckBox_OnChecked;
-            EnableHooksCheckBox.IsChecked = App.Settings.InGameAddonEnabled;
-            this.EnableHooksCheckBox.Checked += this.EnableHooksCheckBox_OnChecked;
+            // FFXIVPlugins fork: Dalamud is always on
 
             OtpServerCheckBox.IsChecked = App.Settings.OtpServerEnabled;
 
@@ -116,7 +113,7 @@ namespace XIVLauncher.Windows
             App.Settings.KeepPatches = KeepPatchesCheckBox.IsChecked == true;
             App.Settings.AutoStartSteam = AutoStartSteamCheckBox.IsChecked == true;
 
-            App.Settings.InGameAddonEnabled = EnableHooksCheckBox.IsChecked == true;
+            App.Settings.InGameAddonEnabled = true; // FFXIVPlugins fork: always on
 
             App.Settings.OtpServerEnabled = OtpServerCheckBox.IsChecked == true;
 
@@ -293,35 +290,7 @@ namespace XIVLauncher.Windows
         }
 
         private void EnableHooksCheckBox_OnChecked(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrEmpty(ViewModel.GamePath) || !GameHelpers.PathHasExistingInstall(ViewModel.GamePath))
-                return;
-
-            try
-            {
-                var applicable = App.DalamudUpdater.ReCheckVersion(new DirectoryInfo(ViewModel.GamePath));
-
-                if (!applicable.HasValue)
-                {
-                    CustomMessageBox.Show(
-                        Loc.Localize("DalamudEnsureFail", "Could not determine Dalamud compatibility for the selected game version.\nPlease ensure that the game path is correct and that the game is fully updated."),
-                        "XIVLauncher", MessageBoxButton.OK, MessageBoxImage.Asterisk, parentWindow: Window.GetWindow(this));
-                }
-                else if ((bool)!applicable)
-                {
-                    CustomMessageBox.Show(
-                        Loc.Localize("DalamudIncompatible", "Dalamud was not yet updated for your current game version.\nThis is common after patches, so please be patient or ask on the Discord for a status update!"),
-                        "XIVLauncher", MessageBoxButton.OK, MessageBoxImage.Asterisk, parentWindow: Window.GetWindow(this));
-                }
-            }
-            catch (Exception exc)
-            {
-                CustomMessageBox.Show(Loc.Localize("DalamudCompatCheckFailed",
-                    "Could not contact the server to get the current compatible game version for Dalamud. This might mean that your .NET installation is too old.\nPlease check the Discord for more information."), "XIVLauncher Problem", MessageBoxButton.OK, MessageBoxImage.Hand, parentWindow: Window.GetWindow(this));
-
-                Log.Error(exc, "Couldn't check dalamud compatibility.");
-            }
-        }
+         /* FFXIVPlugins fork: feature removed */ }
 
         private void PluginsFolderButton_Click(object sender, RoutedEventArgs e)
         {
@@ -378,22 +347,7 @@ namespace XIVLauncher.Windows
         }
 
         private void OpenDalamudBranchSwitcher_OnClick(object sender, RoutedEventArgs e)
-        {
-            // TODO: Queue this?
-            if (App.DalamudUpdater.State == DalamudUpdater.DownloadState.Running)
-            {
-                CustomMessageBox.Show(Loc.Localize("DalamudBranchSwitcherBusy", "Cannot switch Dalamud branches while an update is in progress.\nPlease wait a little while before trying again."),
-                    "XIVLauncher", MessageBoxButton.OK, MessageBoxImage.Warning, parentWindow: Window.GetWindow(this));
-                return;
-            }
-
-            var window = new DalamudBranchSwitcherWindow
-            {
-                Owner = Window.GetWindow(this)
-            };
-
-            window.ShowDialog();
-        }
+         /* FFXIVPlugins fork: feature removed */ }
 
         private void LicenseText_OnMouseUp(object sender, MouseButtonEventArgs e)
         {
@@ -482,156 +436,16 @@ namespace XIVLauncher.Windows
         }
 
         private void CreateBackup_OnClick(object sender, RoutedEventArgs e)
-        {
-            _ = CreateBackupAsync();
-        }
+         /* FFXIVPlugins fork: feature removed */ }
 
         private async Task CreateBackupAsync()
-        {
-            var parent = Window.GetWindow(this);
-
-            if (GameHelpers.CheckIsGameOpen())
-            {
-                CustomMessageBox.Show(Loc.Localize("CreateBackupGameOpenError", "Please close the game before creating a backup."), "XIVLauncher Error", MessageBoxButton.OK, MessageBoxImage.Error, parentWindow: parent);
-                return;
-            }
-
-            var dlg = new OpenFileDialog
-            {
-                Multiselect = false,
-                Title = "Select a location to save the backup file",
-                Filter = $"XIVLauncher Backup File (*{Backup.BACKUP_EXTENSION})|*{Backup.BACKUP_EXTENSION}",
-                ValidateNames = false,
-                CheckFileExists = false,
-                CheckPathExists = true,
-                FileName = $"xiv_{DateTime.Now:M_d_yy_HH_MM}" + Backup.BACKUP_EXTENSION
-            };
-
-            if (!dlg.ShowDialog(parent).GetValueOrDefault(false))
-                return;
-
-            // Disable UI and show spinner
-            SetBackupUiBusy(true, isCreating: true);
-
-            try
-            {
-                var includeUserFiles = this.BackupIncludeGameSettingsCheckBox.IsChecked == true;
-                await Task.Run(() => Backup.CreateBackup(
-                    new DirectoryInfo(Paths.RoamingPath),
-                    includeUserFiles ? GetGameUserDirectory() : null,
-                    new FileInfo(dlg.FileName)));
-
-                CustomMessageBox.Show(Loc.Localize("BackupCreateSuccess", "Backup created successfully."), "XIVLauncher", parentWindow: parent);
-            }
-            catch (BackupFileException ex)
-            {
-                var msg = Loc.Localize("BackupCreateFailed", "Could not create backup for the file:") + "\n" + ex.FilePath + "\n\n" + ex.Message;
-                CustomMessageBox.Show(msg, "XIVLauncher Error", MessageBoxButton.OK, MessageBoxImage.Error, parentWindow: parent);
-                Log.Error(ex, "CreateBackup failed for file {File}", ex.FilePath);
-            }
-            catch (Exception ex)
-            {
-                CustomMessageBox.Show(Loc.Localize("BackupCreateFailedGeneric", "Failed to create backup."), "XIVLauncher Error", MessageBoxButton.OK, MessageBoxImage.Error, parentWindow: parent);
-                Log.Error(ex, "CreateBackup failed");
-            }
-            finally
-            {
-                SetBackupUiBusy(false);
-            }
-        }
+         /* FFXIVPlugins fork: feature removed */ }
 
         private void RestoreBackup_OnClick(object sender, RoutedEventArgs e)
-        {
-            _ = RestoreBackupAsync();
-        }
+         /* FFXIVPlugins fork: feature removed */ }
 
         private async Task RestoreBackupAsync()
-        {
-            var parent = Window.GetWindow(this);
-
-            if (GameHelpers.CheckIsGameOpen())
-            {
-                CustomMessageBox.Show(Loc.Localize("RestoreBackupGameOpenError", "Please close the game before restoring a backup."), "XIVLauncher Error", MessageBoxButton.OK, MessageBoxImage.Error, parentWindow: parent);
-                return;
-            }
-
-            var dlg = new OpenFileDialog
-            {
-                Multiselect = false,
-                Title = "Select a backup to import",
-                Filter = $"XIVLauncher Backup File (*{Backup.BACKUP_EXTENSION})|*{Backup.BACKUP_EXTENSION}",
-                ValidateNames = true,
-                CheckFileExists = true,
-                CheckPathExists = true
-            };
-
-            if (dlg.ShowDialog(parent) != true)
-                return;
-
-            var doRestoreUserFiles = false;
-
-            try
-            {
-                // check for user files, wrap in Task.Run because it opens the archive
-                var hasUser = await Task.Run(() => Backup.BackupHasUserFiles(new FileInfo(dlg.FileName)));
-
-                if (hasUser)
-                {
-                    var result = CustomMessageBox.Builder
-                        .NewFrom(Loc.Localize("BackupRestoreUserFilesPrompt", "This backup contains game and character settings files.\nDo you want to restore them as well?"))
-                        .WithButtons(MessageBoxButton.YesNoCancel)
-                        .WithImage(MessageBoxImage.Question)
-                        .WithParentWindow(parent)
-                        .Show();
-
-                    if (result == MessageBoxResult.Cancel)
-                        return;
-
-                    doRestoreUserFiles = result == MessageBoxResult.Yes;
-                }
-            }
-            catch (BackupFileException ex)
-            {
-                CustomMessageBox.Show(Loc.Localize("BackupOpenFailed", "Could not restore file in backup. The file may be unreadable.\n\nFile path:") + ex.FilePath, "XIVLauncher Error", MessageBoxButton.OK, MessageBoxImage.Error, parentWindow: parent);
-                return;
-            }
-            catch (Exception ex)
-            {
-                CustomMessageBox.Show(Loc.Localize("BackupOpenFailedGeneric", "Failed to open backup file."), "XIVLauncher Error", MessageBoxButton.OK, MessageBoxImage.Error, parentWindow: parent);
-                Log.Error(ex, "Backup open failed");
-                return;
-            }
-
-            SetBackupUiBusy(true, isCreating: false);
-
-            try
-            {
-                await Task.Run(() => Backup.RestoreBackup(
-                    new DirectoryInfo(Paths.RoamingPath),
-                    doRestoreUserFiles ? GetGameUserDirectory() : null,
-                    new FileInfo(dlg.FileName)));
-
-                App.SetupSettings();
-                this.ReloadSettings();
-
-                CustomMessageBox.Show(Loc.Localize("BackupRestoreSuccess", "Backup restored successfully."), "XIVLauncher", parentWindow: parent);
-            }
-            catch (BackupFileException ex)
-            {
-                var msg = Loc.Localize("BackupRestoreFailed", "Could not restore file:") + "\n" + ex.FilePath + "\n\n" + ex.Message;
-                CustomMessageBox.Show(msg, "XIVLauncher Error", MessageBoxButton.OK, MessageBoxImage.Error, parentWindow: parent);
-                Log.Error(ex, "RestoreBackup failed for file {File}", ex.FilePath);
-            }
-            catch (Exception ex)
-            {
-                CustomMessageBox.Show(Loc.Localize("BackupRestoreFailedGeneric", "Failed to restore backup."), "XIVLauncher Error", MessageBoxButton.OK, MessageBoxImage.Error, parentWindow: parent);
-                Log.Error(ex, "RestoreBackup failed");
-            }
-            finally
-            {
-                SetBackupUiBusy(false);
-            }
-        }
+         /* FFXIVPlugins fork: feature removed */ }
 
         private void SetBackupUiBusy(bool busy, bool isCreating = false)
         {
