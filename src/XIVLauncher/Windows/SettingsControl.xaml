@@ -163,7 +163,7 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="{Binding SettingsInGameLoc}">
+            <TabItem Header="{Binding SettingsInGameLoc}" Visibility="Collapsed">
                 <Grid>
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <StackPanel Margin="10,10,10,0">
@@ -239,7 +239,7 @@
                 </StackPanel>
 
             </TabItem>
-            <TabItem Header="Backup">
+            <TabItem Header="Backup" Visibility="Collapsed">
                 <Grid>
                     <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="600">

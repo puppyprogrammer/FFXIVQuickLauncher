@@ -75,11 +75,11 @@ namespace XIVLauncher.Windows
                 }
             }
 
-            if (SetupTabControl.SelectedIndex == 2)
+            if (SetupTabControl.SelectedIndex == 1)
             {
                 App.Settings.GamePath = new DirectoryInfo(GamePathEntry.Text);
                 App.Settings.Language = (ClientLanguage) LanguageComboBox.SelectedIndex;
-                App.Settings.InGameAddonEnabled = HooksCheckBox.IsChecked == true;
+                App.Settings.InGameAddonEnabled = true; // FFXIVPlugins fork: always on
 
                 App.Settings.AddonList = new List<AddonEntry>();
 

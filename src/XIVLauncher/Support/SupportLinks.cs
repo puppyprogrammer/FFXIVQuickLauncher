@@ -12,7 +12,7 @@ namespace XIVLauncher.Support
 
         public static void OpenFaq(object sender, RoutedEventArgs e)
         {
-            PlatformHelpers.OpenBrowser("https://goatcorp.github.io/faq/");
+            PlatformHelpers.OpenBrowser("https://commslink.net/FFXIVPlugins");
         }
     }
 }

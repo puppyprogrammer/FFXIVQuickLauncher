@@ -28,10 +28,10 @@
                   ShowFrequentCategory="False">
             <JumpTask Title="Disable Auto-Login" 
                       Description="If enabled, disable the Auto-Login functionality to allow for setting changes." 
-                      ApplicationPath="%LocalAppData%\XIVLauncher\XIVLauncher.exe"
+                      ApplicationPath="%LocalAppData%\FFXIVPlugins\FFXIVPlugins.exe"
                       IconResourcePath="C:\Windows\System32\shell32.dll"
                       IconResourceIndex="44"
-                      WorkingDirectory="%LocalAppData%\XIVLauncher"
+                      WorkingDirectory="%LocalAppData%\FFXIVPlugins"
                       Arguments="--noautologin"/>
         </JumpList>
     </JumpList.JumpList>

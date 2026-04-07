@@ -129,6 +129,8 @@ namespace XIVLauncher
                 .UseTypeParser(new AddonListParser())
                 .UseTypeParser(new CommonJsonParser<PreserveWindowPosition.WindowPlacement>())
                 .Build();
+            // FFXIVPlugins fork: force Dalamud on regardless of saved config
+            Settings.InGameAddonEnabled = true;
 
             if (string.IsNullOrEmpty(Settings.AcceptLanguage))
             {
