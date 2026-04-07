@@ -230,7 +230,20 @@ namespace XIVLauncher
 
         public async Task Run(bool downloadPrerelease, ChangelogWindow? changelogWindow)
         {
-            try
+            // FFXIVPlugins fork: skip Velopack update check entirely.
+            // Our XLWebServices does not publish launcher releases — we do not auto-update.
+            UpdateLease = new Lease
+            {
+                Success = true,
+                FrontierUrl = "https://launcher.finalfantasyxiv.com/v620/index.html?rc_lang={0}&time={1}",
+                Flags = LeaseFeatureFlags.None,
+                ReleasesList = "",
+                ReleasesJson = null,
+                ValidUntil = DateTime.UtcNow.AddDays(365),
+            };
+            OnUpdateCheckFinished?.Invoke(true);
+            await Task.CompletedTask;
+            if (false) { try
             {
                 var updateResult = await LeaseUpdateManager(downloadPrerelease).ConfigureAwait(false);
                 UpdateLease = updateResult.Lease;
@@ -323,7 +336,7 @@ namespace XIVLauncher
                 }
 
                 Environment.Exit(1);
-            }
+            } }
         }
     }
 }
