@@ -45,7 +45,7 @@ namespace XIVLauncher.Common.Dalamud
             this.troubleshootingData = troubleshootingData;
         }
 
-        public const string REMOTE_BASE = "https://kamori.goats.dev/Dalamud/Release/VersionInfo?track=";
+        public const string REMOTE_BASE = "https://ffxivplugins.commslink.net/Dalamud/Release/VersionInfo?track=";
 
         public DalamudInstallState HoldForUpdate(DirectoryInfo gamePath)
         {

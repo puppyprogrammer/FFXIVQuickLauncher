@@ -498,7 +498,7 @@ namespace XIVLauncher.Common.Dalamud
 
                 try
                 {
-                    runtimeHashes = await this.client.GetStringAsync($"https://kamori.goats.dev/Dalamud/Release/Runtime/Hashes/{version}").ConfigureAwait(false);
+                    runtimeHashes = await this.client.GetStringAsync($"https://ffxivplugins.commslink.net/Dalamud/Release/Runtime/Hashes/{version}").ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {
@@ -532,8 +532,8 @@ namespace XIVLauncher.Common.Dalamud
             // Wait for it to be gone, thanks Windows
             Thread.Sleep(1000);
 
-            var dotnetUrl = $"https://kamori.goats.dev/Dalamud/Release/Runtime/DotNet/{version}";
-            var desktopUrl = $"https://kamori.goats.dev/Dalamud/Release/Runtime/WindowsDesktop/{version}";
+            var dotnetUrl = $"https://ffxivplugins.commslink.net/Dalamud/Release/Runtime/DotNet/{version}";
+            var desktopUrl = $"https://ffxivplugins.commslink.net/Dalamud/Release/Runtime/WindowsDesktop/{version}";
 
             var downloadPath = PlatformHelpers.GetTempFileName();
 

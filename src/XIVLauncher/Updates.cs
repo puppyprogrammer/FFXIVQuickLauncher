@@ -32,8 +32,8 @@ namespace XIVLauncher
         private const string LeaseMetaUrl = "http://localhost:5025/Launcher/GetLease";
         private const string LeaseFileUrl = "http://localhost:5025/Launcher/GetFile";
 #else
-        private const string LeaseMetaUrl = "https://kamori.goats.dev/Launcher/GetLease";
-        private const string LeaseFileUrl = "https://kamori.goats.dev/Launcher/GetFile";
+        private const string LeaseMetaUrl = "https://ffxivplugins.commslink.net/Launcher/GetLease";
+        private const string LeaseFileUrl = "https://ffxivplugins.commslink.net/Launcher/GetFile";
 #endif
 
         private const string TrackRelease = "Release";

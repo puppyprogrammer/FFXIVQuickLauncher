@@ -46,7 +46,7 @@ public static class DalamudBranchMeta
 
     public static async Task<IEnumerable<Branch>> FetchBranchesAsync(HttpClient client)
     {
-        var json = await client.GetStringAsync("https://kamori.goats.dev/Dalamud/Release/Meta");
+        var json = await client.GetStringAsync("https://ffxivplugins.commslink.net/Dalamud/Release/Meta");
         var dict = JsonSerializer.Deserialize<Dictionary<string, Branch>>(json);
         return dict == null ? throw new Exception("Failed to deserialize branch metadata.") : dict.Values;
     }

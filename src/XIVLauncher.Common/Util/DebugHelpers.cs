@@ -76,7 +76,7 @@ public static class DebugHelpers
 
     public static async Task<string> GetFrontierUrlForDebugAsync(HttpClient client)
     {
-        const string API_ENDPOINT = "https://kamori.goats.dev/Launcher/GetLauncherClientConfig";
+        const string API_ENDPOINT = "https://ffxivplugins.commslink.net/Launcher/GetLauncherClientConfig";
 
         var response = await client.GetFromJsonAsync<LauncherClientConfigResponse>(API_ENDPOINT).ConfigureAwait(false);
         return response!.FrontierUrl;
