@@ -290,7 +290,7 @@ namespace XIVLauncher.Windows
         }
 
         private void EnableHooksCheckBox_OnChecked(object sender, RoutedEventArgs e)
-         /* FFXIVPlugins fork: feature removed */ }
+        { /* FFXIVPlugins fork: feature removed */ }
 
         private void PluginsFolderButton_Click(object sender, RoutedEventArgs e)
         {
@@ -347,7 +347,7 @@ namespace XIVLauncher.Windows
         }
 
         private void OpenDalamudBranchSwitcher_OnClick(object sender, RoutedEventArgs e)
-         /* FFXIVPlugins fork: feature removed */ }
+        { /* FFXIVPlugins fork: feature removed */ }
 
         private void LicenseText_OnMouseUp(object sender, MouseButtonEventArgs e)
         {
@@ -436,52 +436,18 @@ namespace XIVLauncher.Windows
         }
 
         private void CreateBackup_OnClick(object sender, RoutedEventArgs e)
-         /* FFXIVPlugins fork: feature removed */ }
+        { /* FFXIVPlugins fork: feature removed */ }
 
-        private async Task CreateBackupAsync()
-         /* FFXIVPlugins fork: feature removed */ }
+        private Task CreateBackupAsync()
+        { /* FFXIVPlugins fork: feature removed */ return Task.CompletedTask; }
 
         private void RestoreBackup_OnClick(object sender, RoutedEventArgs e)
-         /* FFXIVPlugins fork: feature removed */ }
+        { /* FFXIVPlugins fork: feature removed */ }
 
-        private async Task RestoreBackupAsync()
-         /* FFXIVPlugins fork: feature removed */ }
+        private Task RestoreBackupAsync()
+        { /* FFXIVPlugins fork: feature removed */ return Task.CompletedTask; }
 
         private void SetBackupUiBusy(bool busy, bool isCreating = false)
-        {
-            this.Dispatcher.Invoke(() =>
-            {
-                SettingsTabControl.IsEnabled = !busy;
-                AcceptSettingsButton.IsEnabled = !busy;
-
-                if (busy)
-                {
-                    if (isCreating)
-                    {
-                        CreateBackupContent.Visibility = Visibility.Collapsed;
-                        CreateBackupSpinner.Visibility = Visibility.Visible;
-                        CreateBackupButton.IsEnabled = false;
-                        RestoreBackupButton.IsEnabled = false;
-                    }
-                    else
-                    {
-                        RestoreBackupContent.Visibility = Visibility.Collapsed;
-                        RestoreBackupSpinner.Visibility = Visibility.Visible;
-                        RestoreBackupButton.IsEnabled = false;
-                        CreateBackupButton.IsEnabled = false;
-                    }
-                }
-                else
-                {
-                    CreateBackupContent.Visibility = Visibility.Visible;
-                    CreateBackupSpinner.Visibility = Visibility.Collapsed;
-                    CreateBackupButton.IsEnabled = true;
-
-                    RestoreBackupContent.Visibility = Visibility.Visible;
-                    RestoreBackupSpinner.Visibility = Visibility.Collapsed;
-                    RestoreBackupButton.IsEnabled = true;
-                }
-            });
-        }
+        { /* FFXIVPlugins fork: feature removed */ }
     }
 }
