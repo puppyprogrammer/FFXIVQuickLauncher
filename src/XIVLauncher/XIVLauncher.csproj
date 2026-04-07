@@ -141,4 +141,10 @@
     <WriteCodeFragment Language="C#" OutputFile="$(CustomAssemblyInfoFile)" AssemblyAttributes="@(AssemblyAttributes)" />
   </Target>
 
+
+  <!-- FFXIVPlugins fork: ship without debug symbols -->
+  <PropertyGroup>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
 </Project>

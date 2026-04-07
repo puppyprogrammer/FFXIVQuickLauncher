@@ -60,4 +60,10 @@
     <ProjectReference Include="..\XIVLauncher.Common\XIVLauncher.Common.csproj" />
   </ItemGroup>
 
+
+  <!-- FFXIVPlugins fork: ship without debug symbols -->
+  <PropertyGroup>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
 </Project>

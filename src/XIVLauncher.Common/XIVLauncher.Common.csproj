@@ -43,4 +43,10 @@
     <ItemGroup>
       <ProjectReference Include="..\XIVLauncher.Aria\XIVLauncher.Aria.csproj" />
     </ItemGroup>
+
+  <!-- FFXIVPlugins fork: ship without debug symbols -->
+  <PropertyGroup>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
 </Project>

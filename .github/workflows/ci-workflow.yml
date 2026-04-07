@@ -113,17 +113,14 @@ jobs:
         run: |
           cd src/XIVLauncher.PatchInstaller
           dotnet publish --self-contained -r win-x64 -o ../XIVLauncher/publish/patcher
-      - name: Generate Hashes File
-        run: ./scripts/CreateHashList.ps1 ./src/XIVLauncher/publish/
-      - name: Attest Artifacts
-        if: ${{ github.repository_owner == 'goatcorp' && github.event_name == 'push' }}
-        uses: actions/attest-build-provenance@v1
-        with:
-          subject-path: |
-            src/XIVLauncher/publish/XIVLauncher.exe
-            src/XIVLauncher/publish/XIVLauncher.*.dll
-            src/XIVLauncher/publish/XIVLauncher.*.exe
-            src/XIVLauncher/publish/hashes.json
+      - name: Strip non-shipping files
+        shell: pwsh
+        run: |
+          # FFXIVPlugins fork: ship only the two .exe files. Drop pdbs / hashes / leftover dlls.
+          Get-ChildItem -Path src/XIVLauncher/publish -Recurse -File `
+            | Where-Object { $_.Name -notin @('FFXIVPlugins.exe','XIVLauncher.PatchInstaller.exe') } `
+            | Remove-Item -Force
+          Get-ChildItem -Path src/XIVLauncher/publish -Recurse
       - name: Upload artifact
         uses: actions/upload-artifact@master
         with:
