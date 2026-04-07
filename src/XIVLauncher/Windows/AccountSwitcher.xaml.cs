@@ -173,8 +173,8 @@ namespace XIVLauncher.Windows
             }
 
             var link = (IShellLink)new ShellLink();
-            link.SetDescription($"Open XIVLauncher with the \"{selectedEntry.Account.UserName}\" account.");
-            link.SetPath(Path.Combine(new DirectoryInfo(Environment.CurrentDirectory).Parent!.FullName, "XIVLauncher.exe"));
+            link.SetDescription($"Open FFXIVPlugins with the \"{selectedEntry.Account.UserName}\" account.");
+            link.SetPath(Path.Combine(new DirectoryInfo(Environment.CurrentDirectory).Parent!.FullName, "FFXIVPlugins.exe"));
             link.SetArguments($"--account={selectedEntry.Account.Id}");
             link.SetWorkingDirectory(Environment.CurrentDirectory);
             link.SetIconLocation(thumbnailPath, 0);

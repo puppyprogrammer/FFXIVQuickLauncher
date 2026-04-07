@@ -10,7 +10,7 @@
     xmlns:viewModel="clr-namespace:XIVLauncher.Windows.ViewModel"
     xmlns:game="clr-namespace:XIVLauncher.Common.Game;assembly=XIVLauncher.Common"
     mc:Ignorable="d"
-    Title="XIVLauncher"
+    Title="FFXIVPlugins"
     Width="845"
     Height="376"
     ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"

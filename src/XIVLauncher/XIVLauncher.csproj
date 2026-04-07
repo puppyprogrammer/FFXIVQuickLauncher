@@ -1,8 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Product>XIVLauncher</Product>
-    <AssemblyTitle>XIVLauncher</AssemblyTitle>
-    <Description>Custom launcher for the most critically acclaimed MMO.</Description>
+    <Product>FFXIVPlugins</Product>
+    <AssemblyName>FFXIVPlugins</AssemblyName>
+    <AssemblyTitle>FFXIVPlugins</AssemblyTitle>
+    <Description>FFXIVPlugins — community plugin distribution for FFXIV. Operated by CommsLink. Not affiliated with goatcorp/XIVLauncher.</Description>
     <VersionPrefix>7.0.20</VersionPrefix>
   </PropertyGroup>
 
