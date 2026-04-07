@@ -10,6 +10,8 @@
     </PropertyGroup>
 
     <PropertyGroup>
+        <!-- FFXIVPlugins fork: hardcode WINDOWS — we only ship for Windows. -->
+        <DefineConstants>$(DefineConstants);WINDOWS</DefineConstants>
         <DefineConstants Condition=" '$(ExtraDefineConstants)' != '' ">$(DefineConstants);$(ExtraDefineConstants)</DefineConstants>
     </PropertyGroup>
 
