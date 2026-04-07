@@ -24,7 +24,7 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <dragablz:TabablzControl x:Name="SettingsTabControl" IsEnabled="True" FixedHeaderCount="5" Style="{StaticResource MaterialDesignTabablzControlStyle}"
+        <dragablz:TabablzControl x:Name="SettingsTabControl" IsEnabled="True" FixedHeaderCount="6" Style="{StaticResource MaterialDesignTabablzControlStyle}"
         ItemContainerStyle="{StaticResource WhiteIndicatorTabItemStyle}" BorderThickness="0">
             <TabItem Header="{Binding SettingsGameLoc}">
                 <StackPanel Margin="10,10,0,0">
@@ -162,6 +162,35 @@
                                 ToolTip="{Binding AutoLaunchAddNewToolTipLoc}" Content="{Binding AddNewLoc}" />
                     </Grid>
                 </Grid>
+            </TabItem>
+
+            <TabItem Header="{Binding SettingsPatchingLoc}">
+                <StackPanel>
+                    <CheckBox x:Name="AskBeforePatchingCheckBox"
+                              Content="{Binding AskBeforePatchLoc}"
+                              HorizontalAlignment="Left" Margin="10,10,0,15"
+                              Foreground="{DynamicResource MaterialDesignBody}" />
+
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top"
+                               Foreground="{DynamicResource MaterialDesignBody}" Text="{Binding PatchPathLoc}" Margin="10,0,0,0"/>
+                    <components:FolderEntry Text="{Binding PatchPath, UpdateSourceTrigger=PropertyChanged}"
+                                            Description="Select a folder" Width="500" VerticalAlignment="Center"
+                                            HorizontalAlignment="Left"
+                                            Foreground="{DynamicResource MaterialDesignBody}" Margin="10,0,0,0" />
+
+                    <Label HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="{DynamicResource MaterialDesignBody}" Margin="5,10,0,0"
+                           Content="{Binding PatchSpeedLimitLoc}" />
+
+                    <StackPanel Orientation="Horizontal" Margin="10,0, 0, 0">
+                        <xaml:SpeedSpinBox x:Name="SpeedLimitSpinBox" Width="200" Height="40" Min="0" Max="10000" Step="1" Unit="MB/s" Value="50"/>
+                    </StackPanel>
+
+                    <CheckBox x:Name="KeepPatchesCheckBox"
+                              Content="{Binding KeepPatchesLoc}"
+                              HorizontalAlignment="Left" Margin="10,10,0,15"
+                              Foreground="{DynamicResource MaterialDesignBody}" />
+                </StackPanel>
+
             </TabItem>
 
             <TabItem Header="{Binding SettingsAboutLoc}">
