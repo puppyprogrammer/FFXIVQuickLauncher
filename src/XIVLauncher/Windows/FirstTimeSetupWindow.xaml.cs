@@ -26,12 +26,7 @@ namespace XIVLauncher.Windows
 
             if (detectedPath != null) GamePathEntry.Text = detectedPath;
 
-            if (AppUtil.IsDisableUpdates || AppUtil.GetBuildOrigin() != "goatcorp/FFXIVQuickLauncher")
-            {
-                CustomMessageBox.Show(
-                    $"You're running an unsupported version of XIVLauncher.\n\nThis can be unsafe and a danger to your SE account. If you have not gotten this unsupported version on purpose, please reinstall a clean version from {App.REPO_URL}/releases and contact us.",
-                    "XIVLauncher Problem", MessageBoxButton.OK, MessageBoxImage.Exclamation, parentWindow: this);
-            }
+            // FFXIVPlugins fork: warning removed — being a fork is the entire point.
         }
 
         private void NextButton_Click(object sender, RoutedEventArgs e)

@@ -134,7 +134,7 @@ namespace XIVLauncher.Windows.ViewModel
 
             SettingsAboutLoc = Loc.Localize("SettingsAbout", "About");
             CreditsLoc = Loc.Localize("Credits",
-                "Made by goat. Special thanks to Mino, sky, LeonBlade, Wintermute, Zyian,\r\nRoy, Meli, Aida Enna, Aireil, kizer and the angry paissa artist!\r\n\r\nAny issues or requests? Join the Discord or create an issue on GitHub!");
+                "FFXIVPlugins — operated by CommsLink.\r\nAn independent community plugin distribution for Final Fantasy XIV.\r\nNot affiliated with goatcorp, XIVLauncher, or Dalamud.\r\n\r\nBuilt on the open-source XIVLauncher and Dalamud projects by goat and contributors.\r\n\r\nAny issues or requests? Join the Discord or open an issue on GitHub.");
             LicenseLoc = Loc.Localize("License", "Licensed under GPLv3 or later. Click here for more.");
             JoinDiscordLoc = Loc.Localize("JoinDiscord", "Join Discord");
             OpenFaqLoc = Loc.Localize("OpenFaq", "Open FAQ");

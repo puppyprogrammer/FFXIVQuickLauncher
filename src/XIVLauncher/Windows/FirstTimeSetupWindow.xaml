@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:XIVLauncher"
         xmlns:components="clr-namespace:XIVLauncher.Xaml.Components"
         mc:Ignorable="d"
-        Title="XIVLauncher Setup" SizeToContent="Height" Width="450" WindowStartupLocation="CenterScreen"
+        Title="FFXIVPlugins Setup" SizeToContent="Height" Width="450" WindowStartupLocation="CenterScreen"
         Icon="pack://application:,,,/Resources/dalamud_icon.ico" ResizeMode="NoResize"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
