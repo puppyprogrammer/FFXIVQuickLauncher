@@ -16,6 +16,17 @@
     <Deterministic>true</Deterministic>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
+
+  <!-- FFXIVPlugins fork: bundle everything into a single self-extracting exe -->
+  <PropertyGroup>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+  </PropertyGroup>
+
     
   <!-- Release builds: Use windows subsystem to hide console window -->
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' Or '$(Configuration)' == 'ReleaseNoUpdate' ">
