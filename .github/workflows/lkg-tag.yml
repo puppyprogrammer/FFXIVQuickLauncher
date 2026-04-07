@@ -1,0 +1,22 @@
+name: Tag last-known-good
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - run: |
+          TAG="lkg-$(date -u +%Y-%m-%d)"
+          git config user.name  "ffxivplugins-bot"
+          git config user.email "bot@ffxivplugins.commslink.net"
+          git tag -a "$TAG" -m "Last-known-good build $(date -u +%Y-%m-%d)"
+          git push origin "$TAG"
+          echo "Tagged HEAD as $TAG"

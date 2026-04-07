@@ -1,0 +1,48 @@
+name: Smoke test
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  url-assertions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Assert all 7 patched files repoint to ffxivplugins
+        run: |
+          FILES=(
+            "src/XIVLauncher/Updates.cs"
+            "src/XIVLauncher/Windows/ChangelogWindow.xaml.cs"
+            "src/XIVLauncher.Common/Dalamud/AssetManager.cs"
+            "src/XIVLauncher.Common/Dalamud/DalamudBranchMeta.cs"
+            "src/XIVLauncher.Common/Dalamud/DalamudLauncher.cs"
+            "src/XIVLauncher.Common/Dalamud/DalamudUpdater.cs"
+            "src/XIVLauncher.Common/Util/DebugHelpers.cs"
+          )
+          fail=0
+          for f in "${FILES[@]}"; do
+            if grep -q "kamori.goats.dev" "$f"; then
+              echo "::error file=$f::Contains kamori.goats.dev — patch reverted"
+              fail=1
+            fi
+            if ! grep -q "ffxivplugins.commslink.net" "$f"; then
+              echo "::error file=$f::Missing ffxivplugins.commslink.net — patch missing"
+              fail=1
+            fi
+          done
+          exit $fail
+
+      - name: Assert WINDOWS define is hardcoded
+        run: |
+          grep -q '<DefineConstants>$(DefineConstants);WINDOWS</DefineConstants>' \
+            src/XIVLauncher.Common/XIVLauncher.Common.csproj \
+            || { echo "::error::WINDOWS preprocessor define missing from Common.csproj — game launch will crash"; exit 1; }
+
+      - name: Assert update check bypass is in place
+        run: |
+          grep -q "FFXIVPlugins fork: skip Velopack update check" \
+            src/XIVLauncher/Updates.cs \
+            || { echo "::error::Update-check bypass missing — launcher will fail to start"; exit 1; }
