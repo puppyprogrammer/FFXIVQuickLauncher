@@ -160,7 +160,8 @@ namespace XIVLauncher
         {
             using var client = new HttpClient(new SocketsHttpHandler()
             {
-                ConnectCallback = new HappyEyeballsCallback().ConnectCallback
+                ConnectCallback = new HappyEyeballsCallback().ConnectCallback,
+                SslOptions = Common.Util.CertificatePinning.CreateSslOptions(),
             });
 
             client.Timeout = TimeSpan.FromMinutes(60);
