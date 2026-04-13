@@ -42,6 +42,7 @@ public class Launcher
         {
             UseCookies = false,
             ConnectCallback = new HappyEyeballsCallback().ConnectCallback,
+            SslOptions = Util.CertificatePinning.CreateSslOptions(),
         };
 
         this.client = new HttpClient(handler);

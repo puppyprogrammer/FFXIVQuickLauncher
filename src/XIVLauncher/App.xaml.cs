@@ -179,6 +179,7 @@ namespace XIVLauncher
             {
                 AutomaticDecompression = DecompressionMethods.All,
                 ConnectCallback = new HappyEyeballsCallback().ConnectCallback,
+                SslOptions = Common.Util.CertificatePinning.CreateSslOptions(),
             });
         }
 

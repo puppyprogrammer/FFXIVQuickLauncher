@@ -25,13 +25,30 @@ public static class PlatformHelpers
     }
 
     /// <summary>
-    ///     Generates a temporary file name.
+    ///     Generates a secure temporary directory path and creates it atomically.
+    ///     Uses a launcher-specific subdirectory and verifies the result is not a
+    ///     symlink or junction (defense against symlink-race attacks in shared temp).
     /// </summary>
-    /// <returns>A temporary file name that is almost guaranteed to be unique.</returns>
+    /// <returns>The full path to the newly created temporary directory.</returns>
     public static string GetTempFileName()
     {
-        // https://stackoverflow.com/a/50413126
-        return Path.Combine(Path.GetTempPath(), "xivlauncher_" + Guid.NewGuid());
+        var baseTempDir = Path.Combine(Path.GetTempPath(), "FFXIVPlugins");
+        Directory.CreateDirectory(baseTempDir);
+
+        var dirName = "xivlauncher_" + Guid.NewGuid();
+        var fullPath = Path.Combine(baseTempDir, dirName);
+
+        var dirInfo = Directory.CreateDirectory(fullPath);
+
+        if (dirInfo.Attributes.HasFlag(FileAttributes.ReparsePoint))
+        {
+            dirInfo.Delete(true);
+            throw new IOException(
+                $"Temp directory {fullPath} is a symlink or junction. " +
+                "This may indicate a local symlink-race attack. Aborting.");
+        }
+
+        return fullPath;
     }
 
     public static void DeleteAndRecreateDirectory(DirectoryInfo dir)
